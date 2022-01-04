@@ -34,6 +34,11 @@ final class ProductRepository implements ProductInterface
     }
     public function delete(int $id): bool
     {
-        return self::findById($id)->delete();
+        $product = self::findById($id);
+        if ($product) {
+
+            return $product->delete();
+        }
+        return false;
     }
 }

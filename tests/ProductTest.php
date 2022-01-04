@@ -96,7 +96,7 @@ class ProductTest extends TestCase
             'description' => 'iphone 13',
         ];
 
-        $this->put("products/7", $parameters, []);
+        $this->put("products/10", $parameters, []);
         $this->seeStatusCode(200);
         $this->seeJsonStructure([
             'status',
@@ -131,8 +131,20 @@ class ProductTest extends TestCase
     public function testDeleteProduct()
     {
 
-        $this->delete("products/3", [], []);
+        $this->delete("products/10", [], []);
         $this->seeStatusCode(200);
+        $this->seeJsonStructure([
+            'status',
+            'message',
+            'data'
+        ]);
+    }
+
+    public function testDeleteProductNotFound()
+    {
+
+        $this->delete("products/3", [], []);
+        $this->seeStatusCode(404);
         $this->seeJsonStructure([
             'status',
             'message',
