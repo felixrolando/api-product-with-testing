@@ -46,7 +46,7 @@ class ProductsController extends Controller
         try {
 
             $product = $this->createProductService->execute($request->all());
-            return $this->successResponse($product);
+            return $this->successResponse($product, null, 201);
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage(), 400);
         }
@@ -61,7 +61,7 @@ class ProductsController extends Controller
             return $this->successResponse($product);
         } catch (\Exception $e) {
 
-            return $this->errorResponse($e->getMessage(), 400);
+            return $this->errorResponse($e->getMessage(), 404);
         }
     }
 
@@ -72,7 +72,7 @@ class ProductsController extends Controller
             $product = $this->deleteProductService->execute($id);
             return $this->successResponse($product, 'product removed successfully');
         } catch (\Exception $e) {
-            return $this->errorResponse($e->getMessage(), 400);
+            return $this->errorResponse($e->getMessage(), 404);
         }
     }
 }

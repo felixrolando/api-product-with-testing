@@ -36,8 +36,9 @@ class ProductTest extends TestCase
 
     public function testGetProductById()
     {
-        $this->get("products/4", []);
+        $this->get("products/2", []);
         $this->seeStatusCode(200);
+        $this->seeStatusCode(404);
         $this->seeJsonStructure([
             'status',
             'message',
@@ -61,7 +62,7 @@ class ProductTest extends TestCase
         ];
 
         $this->post("products", $parameters, []);
-        $this->seeStatusCode(200);
+        $this->seeStatusCode(201);
         $this->seeJsonStructure([
             'status',
             'message',
@@ -84,8 +85,9 @@ class ProductTest extends TestCase
             'description' => 'iphone 13',
         ];
 
-        $this->put("products/4", $parameters, []);
+        $this->put("products/3", $parameters, []);
         $this->seeStatusCode(200);
+        $this->seeStatusCode(404);
         $this->seeJsonStructure([
             'status',
             'message',
@@ -102,8 +104,9 @@ class ProductTest extends TestCase
     public function testDeleteProduct()
     {
 
-        $this->delete("products/5", [], []);
+        $this->delete("products/3", [], []);
         $this->seeStatusCode(200);
+        $this->seeStatusCode(404);
         $this->seeJsonStructure([
             'status',
             'message',
