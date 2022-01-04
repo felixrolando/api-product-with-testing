@@ -35,9 +35,13 @@ class ProductsController extends Controller
     {
         try {
             $product = $this->findProductService->execute($id);
-            return $this->successResponse($product);
-        } catch (\Exception $e) {
+            if ($product) {
+
+                return $this->successResponse($product);
+            }
             return $this->errorResponse('product not found!', 404);
+        } catch (\Exception $e) {
+            return $this->errorResponse('product not found!', 400);
         }
     }
 
@@ -46,7 +50,11 @@ class ProductsController extends Controller
         try {
 
             $product = $this->createProductService->execute($request->all());
-            return $this->successResponse($product, null, 201);
+            if ($product) {
+
+                return $this->successResponse($product, null, 201);
+            }
+            return $this->errorResponse('product not created!', 404);
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage(), 400);
         }
@@ -61,7 +69,7 @@ class ProductsController extends Controller
             return $this->successResponse($product);
         } catch (\Exception $e) {
 
-            return $this->errorResponse($e->getMessage(), 404);
+            return $this->errorResponse($e->getMessage(), 400);
         }
     }
 
@@ -70,9 +78,13 @@ class ProductsController extends Controller
 
         try {
             $product = $this->deleteProductService->execute($id);
-            return $this->successResponse($product, 'product removed successfully');
+            if ($product) {
+
+                return $this->successResponse($product, 'product removed successfully');
+            }
+            return $this->errorResponse('product not removed!', 404);
         } catch (\Exception $e) {
-            return $this->errorResponse($e->getMessage(), 404);
+            return $this->errorResponse($e->getMessage(), 400);
         }
     }
 }
