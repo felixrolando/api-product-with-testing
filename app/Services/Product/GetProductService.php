@@ -2,10 +2,21 @@
 
 namespace App\Services\Product;
 
-final class GetProductService {
+use App\Repositories\Mysql\Eloquent\Product\ProductRepository;
 
-    public function execute(){
-        
+final class GetProductService
+{
+
+    private $productRepository;
+
+    public function __construct(ProductRepository $productRepository)
+    {
+        $this->productRepository = $productRepository;
     }
-    
+
+
+    public function execute()
+    {
+        return $this->productRepository->get();
+    }
 }

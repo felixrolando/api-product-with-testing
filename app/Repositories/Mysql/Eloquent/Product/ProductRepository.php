@@ -8,6 +8,11 @@ use App\Repositories\Mysql\Eloquent\Product\ProductInterface;
 final class ProductRepository implements ProductInterface
 {
 
+    public function get()
+    {
+        return Product::paginate(5);
+    }
+
     public static function findById(int $id): ?Product
     {
         return Product::find($id);
@@ -24,6 +29,8 @@ final class ProductRepository implements ProductInterface
         $product->product_name = $data['name'];
         $product->product_description = $data['description'];
         $product->save();
+
+        return $product;
     }
     public function delete(int $id): bool
     {

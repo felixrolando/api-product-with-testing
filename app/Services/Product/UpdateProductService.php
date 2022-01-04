@@ -18,8 +18,6 @@ final class UpdateProductService
     public function execute(int $id, array $data)
     {
 
-        return $data;
-
         try {
 
             $product_update = $this->productRepository->update($id, $data);

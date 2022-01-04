@@ -65,8 +65,11 @@ class ProductsController extends Controller
         try {
 
             $product = $this->updateProductService->execute($id, $request->all());
+            if ($product) {
 
-            return $this->successResponse($product);
+                return $this->successResponse($product);
+            }
+            return $this->errorResponse('product not updated!', 404);
         } catch (\Exception $e) {
 
             return $this->errorResponse($e->getMessage(), 400);

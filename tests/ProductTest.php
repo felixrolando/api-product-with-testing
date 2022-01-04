@@ -38,7 +38,6 @@ class ProductTest extends TestCase
     {
         $this->get("products/2", []);
         $this->seeStatusCode(200);
-        $this->seeStatusCode(404);
         $this->seeJsonStructure([
             'status',
             'message',
@@ -53,11 +52,23 @@ class ProductTest extends TestCase
         ]);
     }
 
+    public function testGetProductByIdNotFound()
+    {
+        $this->get("products/45", []);
+        $this->seeStatusCode(404);
+        $this->seeJsonStructure([
+            'status',
+            'message',
+            'data' => []
+
+        ]);
+    }
+
     public function testPostProduct()
     {
 
         $parameters = [
-            'name' => 'cellphone',
+            'name' => 'cellphone last',
             'description' => 'iphone 13',
         ];
 
@@ -85,9 +96,8 @@ class ProductTest extends TestCase
             'description' => 'iphone 13',
         ];
 
-        $this->put("products/3", $parameters, []);
+        $this->put("products/7", $parameters, []);
         $this->seeStatusCode(200);
-        $this->seeStatusCode(404);
         $this->seeJsonStructure([
             'status',
             'message',
@@ -101,12 +111,28 @@ class ProductTest extends TestCase
         ]);
     }
 
+    public function testUpdateProductNotFound()
+    {
+
+        $parameters = [
+            'name' => 'cellphone iphone',
+            'description' => 'iphone 13',
+        ];
+
+        $this->put("products/4", $parameters, []);
+        $this->seeStatusCode(404);
+        $this->seeJsonStructure([
+            'status',
+            'message',
+            'data' => []
+        ]);
+    }
+
     public function testDeleteProduct()
     {
 
         $this->delete("products/3", [], []);
         $this->seeStatusCode(200);
-        $this->seeStatusCode(404);
         $this->seeJsonStructure([
             'status',
             'message',
