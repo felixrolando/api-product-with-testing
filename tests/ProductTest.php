@@ -52,18 +52,6 @@ class ProductTest extends TestCase
         ]);
     }
 
-    public function testGetProductByIdNotFound()
-    {
-        $this->get("products/45", []);
-        $this->seeStatusCode(404);
-        $this->seeJsonStructure([
-            'status',
-            'message',
-            'data' => []
-
-        ]);
-    }
-
     public function testPostProduct()
     {
 
@@ -111,23 +99,6 @@ class ProductTest extends TestCase
         ]);
     }
 
-    public function testUpdateProductNotFound()
-    {
-
-        $parameters = [
-            'name' => 'cellphone iphone',
-            'description' => 'iphone 13',
-        ];
-
-        $this->put("products/4", $parameters, []);
-        $this->seeStatusCode(404);
-        $this->seeJsonStructure([
-            'status',
-            'message',
-            'data' => []
-        ]);
-    }
-
     public function testDeleteProduct()
     {
 
@@ -140,15 +111,4 @@ class ProductTest extends TestCase
         ]);
     }
 
-    public function testDeleteProductNotFound()
-    {
-
-        $this->delete("products/3", [], []);
-        $this->seeStatusCode(404);
-        $this->seeJsonStructure([
-            'status',
-            'message',
-            'data'
-        ]);
-    }
 }
